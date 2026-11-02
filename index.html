@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض إدارة وتشغيل إعلانات TikTok | شركة Jawhara Pack – جوهرة باك × KAAF Group</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Cairo & IBM Plex Sans Arabic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kaaf: {
+                            blue: '#0A4C86',
+                            blueLight: '#1C75C8',
+                            blueDeep: '#05233E',
+                            cyan: '#06B6D4',
+                            cyanLight: '#67E8F9',
+                            dark: '#030812',
+                            darkSlate: '#081324',
+                            cardBg: '#0b162c',
+                            border: '#1a2e50',
+                            gold: '#D4AF37',
+                            goldLight: '#F5DE88',
+                            amber: '#F59E0B',
+                            red: '#E11D48',
+                            tiktok: '#FE2C55',
+                            tiktokCyan: '#25F4EE'
+                        }
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        ibm: ['IBM Plex Sans Arabic', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'glow-blue': '0 0 40px -10px rgba(10, 76, 134, 0.7)',
+                        'glow-cyan': '0 0 35px -8px rgba(6, 182, 212, 0.5)',
+                        'glow-tiktok': '0 0 35px -8px rgba(254, 44, 85, 0.45)',
+                        'web-card': '0 25px 50px -12px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.08)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Cairo', 'IBM Plex Sans Arabic', sans-serif;
+            background-color: #030812;
+            color: #E2E8F0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Fullscreen Interactive Canvas */
+        #interactive-bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.85;
+        }
+
+        /* Top Accent Ribbon */
+        .kaaf-luxury-ribbon {
+            background: linear-gradient(90deg, 
+                #0A4C86 0%, 
+                #06B6D4 25%, 
+                #FE2C55 50%, 
+                #25F4EE 75%, 
+                #0A4C86 100%
+            );
+            height: 4px;
+        }
+
+        /* Glassmorphic Cards */
+        .web-card-blue {
+            background: linear-gradient(135deg, rgba(11, 26, 48, 0.88) 0%, rgba(5, 14, 28, 0.96) 100%);
+            border: 1px solid rgba(28, 117, 200, 0.3);
+            backdrop-filter: blur(16px);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .web-card-blue:hover {
+            border-color: rgba(6, 182, 212, 0.8);
+            transform: translateY(-4px);
+            box-shadow: 0 25px 45px -10px rgba(10, 76, 134, 0.6), 0 0 25px rgba(6, 182, 212, 0.25);
+        }
+
+        .web-card-tiktok {
+            background: linear-gradient(135deg, rgba(20, 10, 24, 0.9) 0%, rgba(6, 14, 28, 0.96) 100%);
+            border: 1px solid rgba(254, 44, 85, 0.35);
+            backdrop-filter: blur(16px);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .web-card-tiktok:hover {
+            border-color: rgba(254, 44, 85, 0.85);
+            transform: translateY(-4px);
+            box-shadow: 0 25px 45px -10px rgba(254, 44, 85, 0.45);
+        }
+
+        .web-card-cyan {
+            background: linear-gradient(135deg, rgba(8, 32, 54, 0.9) 0%, rgba(4, 18, 34, 0.96) 100%);
+            border: 1px solid rgba(6, 182, 212, 0.4);
+            backdrop-filter: blur(16px);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .web-card-cyan:hover {
+            border-color: rgba(6, 182, 212, 0.85);
+            box-shadow: 0 25px 45px -10px rgba(6, 182, 212, 0.45);
+        }
+
+        /* Floating living icons */
+        @keyframes float-alive-left {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                box-shadow: 0 10px 25px -5px rgba(10, 76, 134, 0.6), 0 0 20px rgba(30, 117, 198, 0.4);
+            }
+            50% {
+                transform: translateY(-8px) rotate(1deg);
+                box-shadow: 0 20px 35px -5px rgba(10, 76, 134, 0.85), 0 0 30px rgba(30, 117, 198, 0.65);
+            }
+        }
+
+        @keyframes float-alive-right {
+            0%, 100% {
+                transform: translateY(0px) scale(1);
+                box-shadow: 0 10px 25px -5px rgba(37, 211, 102, 0.5), 0 0 20px rgba(37, 211, 102, 0.4);
+            }
+            50% {
+                transform: translateY(-8px) scale(1.04);
+                box-shadow: 0 20px 35px -5px rgba(37, 211, 102, 0.85), 0 0 32px rgba(37, 211, 102, 0.65);
+            }
+        }
+
+        .animate-floating-kaaf {
+            animation: float-alive-left 4s ease-in-out infinite;
+        }
+
+        .animate-floating-whatsapp {
+            animation: float-alive-right 4s ease-in-out infinite 0.7s;
+        }
+
+        /* Nav link underline marker */
+        .nav-link {
+            position: relative;
+            transition: color 0.2s;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: #06B6D4;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-kaaf-blue selection:text-white">
+
+    <!-- Fullscreen Interactive Canvas Layer -->
+    <canvas id="interactive-bg-canvas"></canvas>
+
+    <!-- FLOATING KAAF GROUP LOGO BUTTON (BOTTOM LEFT) -->
+    <aside id="floating-kaaf-btn" class="fixed bottom-6 left-6 z-50">
+        <a href="https://kaafmarketing.sa/" target="_blank" rel="noopener noreferrer" title="مجموعة كاف | KAAF Group for Marketing, Software & Media Solutions" class="block w-14 h-14 rounded-full overflow-hidden border-2 border-kaaf-cyanLight/80 p-0.5 bg-black/90 animate-floating-kaaf transition-all duration-300 hover:scale-110 active:scale-95 group backdrop-blur-md hover:border-kaaf-cyanLight hover:shadow-glow-blue">
+            <img src="https://i.ibb.co/qLQcG9vr/Whats-App-Image-2026-08-26-at-11-29-58.jpg" alt="KAAF Group Logo" class="w-full h-full object-cover rounded-full transition-transform duration-300 group-hover:scale-105">
+        </a>
+    </aside>
+
+    <!-- FLOATING WHATSAPP BUTTON (BOTTOM RIGHT) -->
+    <aside id="floating-wa-btn" class="fixed bottom-6 right-6 z-50">
+        <a href="https://wa.me/966558029554?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20KAAF%20Group%D8%8C%20%D9%86%D9%88%D8%AF%20%D9%85%D9%86%D8%A7%D9%82%D8%B4%D8%A9%20%D8%B9%D8%B1%D8%B6%20%D8%A5%D8%AF%D8%A7%D8%B1%D8%A9%20%D8%A5%D8%B9%D9%84%D8%A7%D9%86%D8%A7%D8%AA%20TikTok%20%D9%84%D8%B4%D8%B1%D9%83%D8%A9%20Jawhara%20Pack%20%E2%80%93%20%D8%AC%D9%88%D9%87%D8%B1%D8%A9%20%D8%A8%D8%A7%D9%83" target="_blank" rel="noopener noreferrer" title="تواصل مباشر مع KAAF Group" class="w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center border-2 border-emerald-200/80 animate-floating-whatsapp transition-all duration-300 hover:scale-110 active:scale-95 group shadow-lg hover:shadow-emerald-500/50">
+            <i class="fa-brands fa-whatsapp text-3xl"></i>
+        </a>
+    </aside>
+
+    <!-- TOP WEBSITE NAVIGATION BAR -->
+    <header id="top-nav" class="sticky top-0 z-50 bg-kaaf-dark/90 backdrop-blur-xl border-b border-kaaf-border/70 px-4 lg:px-12 py-3.5 transition-all">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Brand Identity -->
+            <div class="flex items-center gap-3 sm:gap-4">
+                <a href="https://kaafmarketing.sa/" target="_blank" rel="noopener noreferrer" title="مجموعة كاف | KAAF Group" class="h-11 w-11 rounded-2xl overflow-hidden border border-kaaf-blueLight/50 p-0.5 bg-black shrink-0 shadow-glow-blue transition-transform hover:scale-105 flex items-center justify-center">
+                    <img src="https://i.ibb.co/qLQcG9vr/Whats-App-Image-2026-08-26-at-11-29-58.jpg" alt="KAAF Group Logo" class="w-full h-full object-cover rounded-xl">
+                </a>
+
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-bold text-gray-400">مقدم من:</span>
+                        <a href="https://kaafmarketing.sa/" target="_blank" class="text-base font-black text-white tracking-wide font-ibm hover:text-kaaf-cyanLight transition">KAAF Group</a>
+                        <span class="px-2 py-0.5 rounded-full bg-kaaf-blue/30 text-kaaf-cyanLight text-[10px] font-extrabold border border-kaaf-blue/50">Jawhara Pack</span>
+                    </div>
+                    <p class="text-[11px] text-gray-400 font-medium">عرض إدارة وتشغيل إعلانات TikTok • حلول التعبئة والتغليف</p>
+                </div>
+            </div>
+
+            <!-- Desktop Website Navigation Links -->
+            <nav class="hidden lg:flex items-center gap-6 text-xs font-bold text-gray-300">
+                <a href="#analysis" class="nav-link hover:text-white">تحليل الحساب</a>
+                <a href="#audience" class="nav-link hover:text-white">الجمهور المستهدف</a>
+                <a href="#strategy" class="nav-link hover:text-white">الاستراتيجية الإعلانية</a>
+                <a href="#framework" class="nav-link hover:text-white">آلية الحملات والميزانية</a>
+                <a href="#roadmap" class="nav-link hover:text-white">الخطة الشهرية ومؤشرات الأداء</a>
+                <a href="#pricing" class="px-4 py-1.5 rounded-full bg-gradient-to-r from-kaaf-blue to-kaaf-tiktok text-white font-black hover:brightness-110 shadow-sm transition border border-kaaf-tiktok/40 flex items-center gap-1.5">
+                    <i class="fa-solid fa-tag text-[10px]"></i>
+                    <span>عرض White Friday</span>
+                </a>
+            </nav>
+
+            <!-- Mobile Contact Button -->
+            <div class="lg:hidden flex items-center gap-2">
+                <a href="https://wa.me/966558029554?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20KAAF%20Group%D8%8C%20%D9%86%D9%88%D8%AF%20%D9%85%D9%86%D8%A7%D9%82%D8%B4%D8%A9%20%D8%B9%D8%B1%D8%B6%20TikTok%20%D9%84%D8%B4%D8%B1%D9%83%D8%A9%20%D8%AC%D9%88%D9%87%D8%B1%D8%A9%20%D8%A8%D8%A7%D9%83" target="_blank" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-kaaf-blue to-emerald-600 text-white text-xs font-bold flex items-center gap-1.5">
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                    <span>تواصل معنا</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTINUOUS WEBSITE CONTAINER -->
+    <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-24">
+
+        <!-- ========================================================================= -->
+        <!-- 01 — HERO SECTION                                                         -->
+        <!-- ========================================================================= -->
+        <section id="hero" class="relative rounded-[32px] overflow-hidden p-8 sm:p-14 lg:p-20 bg-gradient-to-br from-kaaf-blueDeep/90 via-kaaf-darkSlate to-kaaf-dark border border-kaaf-border shadow-web-card text-white backdrop-blur-xl">
+            <div class="kaaf-luxury-ribbon absolute top-0 left-0 right-0"></div>
+
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                <!-- Left Hero Details (7 Cols) -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-kaaf-blue/30 border border-kaaf-blueLight/40 text-kaaf-cyanLight text-xs font-bold font-ibm tracking-wide">
+                        <i class="fa-brands fa-tiktok text-kaaf-tiktok"></i>
+                        <span>عرض تسويقي موجه إلى: شركة Jawhara Pack – جوهرة باك</span>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs tracking-widest uppercase text-kaaf-cyan font-ibm font-bold">Proposal Prepared For:</span>
+                            <span class="text-xl sm:text-2xl font-black text-white">Jawhara Pack | جوهرة باك</span>
+                        </div>
+
+                        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight">
+                            تحويل منتجات التغليف إلى <br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-l from-kaaf-tiktok via-kaaf-cyan to-white">
+                                حلول تجارية جاذبة وطلبات عروض أسعار مستمرة
+                            </span>
+                        </h1>
+
+                        <p class="text-base sm:text-lg font-bold text-sky-100/90 font-cairo leading-relaxed">
+                            «إدارة وتشغيل إعلانات TikTok مدروسة ومستمرة التحسين تصل مباشرة إلى أصحاب المطاعم، الكافيهات، والمتاجر.»
+                        </p>
+                    </div>
+
+                    <p class="text-sm sm:text-base text-gray-300 leading-relaxed max-w-2xl font-normal">
+                        استناداً إلى التحليل التسويقي لحساب TikTok الخاص بالشركة (<a href="https://www.tiktok.com/@jawharapack" target="_blank" class="text-kaaf-cyan underline font-mono">@jawharapack</a>)، يسر <strong>KAAF Group for Marketing, Software & Media Solutions</strong> تقديم هذا العرض لإدارة وتشغيل إعلانات تيك توك عبر استراتيجية محددة تعتمد على <strong>إنتاج وتشغيل إعلانين فيديو شهرياً</strong> تحول المشاهدات إلى استفسارات وطلبات عروض أسعار فعلية.
+                    </p>
+
+                    <!-- Trust Bar -->
+                    <div class="pt-2 grid grid-cols-2 sm:grid-cols-3 gap-3">
+                        <div class="p-3.5 rounded-2xl bg-black/60 border border-kaaf-border text-center">
+                            <span class="text-xs text-gray-400 block font-medium">العميل المستهدف</span>
+                            <span class="text-sm font-black text-white font-ibm">جوهرة باك</span>
+                        </div>
+                        <div class="p-3.5 rounded-2xl bg-black/60 border border-kaaf-border text-center">
+                            <span class="text-xs text-gray-400 block font-medium">المنصة الإعلانية</span>
+                            <span class="text-sm font-black text-kaaf-tiktok font-ibm">TikTok Ads</span>
+                        </div>
+                        <div class="col-span-2 sm:col-span-1 p-3.5 rounded-2xl bg-black/60 border border-kaaf-border text-center">
+                            <span class="text-xs text-gray-400 block font-medium">حجم الإنتاج الإعلاني</span>
+                            <span class="text-sm font-black text-kaaf-cyanLight font-ibm">إعلانان فيديو شهرياً</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Hero Visual: Packaging & Campaign Preview (5 Cols) -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="w-full max-w-sm space-y-4 p-7 rounded-3xl bg-kaaf-cardBg/90 border border-kaaf-border shadow-2xl backdrop-blur-md">
+                        <div class="flex items-center justify-between pb-3 border-b border-white/10">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-kaaf-tiktok animate-pulse"></span>
+                                <span class="text-xs font-black text-white">حلول التعبئة والتغليف المستهدفة</span>
+                            </div>
+                            <span class="text-[10px] text-kaaf-cyan font-mono font-bold">B2B TIKTOK CAMPAIGN</span>
+                        </div>
+
+                        <!-- 4 Product Categories -->
+                        <div class="grid grid-cols-2 gap-2 text-xs">
+                            <div class="p-3 rounded-xl bg-kaaf-blue/25 border border-kaaf-blue/40 text-center">
+                                <i class="fa-solid fa-mug-saucer text-kaaf-cyan text-base block mb-1"></i>
+                                <span class="text-white font-bold block">الأكواب الورقية</span>
+                                <span class="text-[10px] text-gray-400">للكافيهات والمطاعم</span>
+                            </div>
+                            <div class="p-3 rounded-xl bg-kaaf-tiktok/20 border border-kaaf-tiktok/40 text-center">
+                                <i class="fa-solid fa-box-open text-kaaf-tiktok text-base block mb-1"></i>
+                                <span class="text-white font-bold block">الصناديق والكرتون</span>
+                                <span class="text-[10px] text-gray-400">للمتاجر والشحن</span>
+                            </div>
+                            <div class="p-3 rounded-xl bg-black/60 border border-white/10 text-center">
+                                <i class="fa-solid fa-bag-shopping text-kaaf-gold text-base block mb-1"></i>
+                                <span class="text-white font-bold block">أكياس التغليف</span>
+                                <span class="text-[10px] text-gray-400">طباعة خاصة بالهوية</span>
+                            </div>
+                            <div class="p-3 rounded-xl bg-kaaf-cardBg border border-kaaf-cyan/30 text-center">
+                                <i class="fa-solid fa-industry text-kaaf-cyanLight text-base block mb-1"></i>
+                                <span class="text-white font-bold block">خطوط الإنتاج</span>
+                                <span class="text-[10px] text-gray-400">كواليس التصنيع</span>
+                            </div>
+                        </div>
+
+                        <!-- Price Teaser Card -->
+                        <div class="p-3.5 rounded-xl bg-black/70 border border-kaaf-tiktok/40 text-xs text-gray-300 text-right leading-relaxed">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-[10px] text-kaaf-tiktok font-black px-2 py-0.5 rounded bg-kaaf-tiktok/20 border border-kaaf-tiktok/40">عرض White Friday</span>
+                                <span class="line-through text-gray-500 text-[11px]">1,800 SAR</span>
+                            </div>
+                            <div class="text-white font-bold text-sm">
+                                960 ريال شهرياً فقط <span class="text-[11px] text-gray-400 font-normal">(أتعاب الإدارة)</span>
+                            </div>
+                            <div class="text-[10px] text-gray-400 mt-1">الميزانية الإعلانية: 2,000 ريال شهرياً مستقلة للمنصة.</div>
+                        </div>
+
+                        <div class="pt-2 text-center">
+                            <a href="#pricing" class="inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-xl bg-gradient-to-r from-kaaf-blue via-kaaf-blueLight to-kaaf-tiktok text-white font-black text-xs hover:brightness-110 shadow-glow-tiktok transition">
+                                <span>استعراض تفاصيل العرض والباقة</span>
+                                <i class="fa-solid fa-arrow-left text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- 02 — ACCOUNT ANALYSIS & OPPORTUNITY                                       -->
+        <!-- ========================================================================= -->
+        <section id="analysis" class="space-y-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
+                <div class="flex items-center gap-3">
+                    <span class="px-3 py-1 rounded-full bg-kaaf-blue/30 text-kaaf-cyan font-black text-xs border border-kaaf-blue/50">01</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-white tracking-wide">تحليل النشاط وحساب TikTok | Account Analysis</h2>
+                </div>
+                <a href="https://www.tiktok.com/@jawharapack" target="_blank" class="text-xs text-kaaf-cyan font-mono hover:underline flex items-center gap-1.5">
+                    <i class="fa-brands fa-tiktok text-kaaf-tiktok"></i>
+                    <span>@jawharapack</span>
+                </a>
+            </div>
+
+            <div class="web-card-blue rounded-3xl p-6 sm:p-10 shadow-web-card space-y-6">
+                <div class="space-y-3">
+                    <div class="flex items-center gap-2 text-kaaf-cyan font-bold text-sm">
+                        <i class="fa-solid fa-magnifying-glass-chart text-base"></i>
+                        <span>قراءة في محتوى الحساب والفرصة الإعلانية:</span>
+                    </div>
+                    <p class="text-base sm:text-lg text-slate-200 leading-relaxed font-medium">
+                        تعد شركة <strong>Jawhara Pack – جوهرة باك</strong> من الأنشطة المتخصصة في تقديم منتجات وحلول التعبئة والتغليف المخصصة للمشاريع التجارية. من خلال مراجعة المحتوى الظاهر على حساب تيك توك، نلاحظ تنوعاً كبيراً في المنتجات من <strong>الأكواب الورقية والبلاستيكية، علب الكرتون وصناديق الشحن، أكياس التغليف الورقية، ومنتجات التعبئة ذات الهوية المطبوعة</strong>.
+                    </p>
+                </div>
+
+                <!-- 4 Visual Opportunities Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+                    <div class="p-5 rounded-2xl bg-black/50 border border-white/10 space-y-2">
+                        <div class="w-10 h-10 rounded-xl bg-kaaf-blue/40 text-kaaf-cyan flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-award"></i>
+                        </div>
+                        <h3 class="text-sm font-black text-white">جودة المنتج النهائي</h3>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            إظهار دقة الطباعة والألوان وثبات خامات التغليف بلقطات قريبة تركز على التفاصيل التي يهتم بها أصحاب المشاريع.
+                        </p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-black/50 border border-kaaf-tiktok/40 space-y-2">
+                        <div class="w-10 h-10 rounded-xl bg-kaaf-tiktok/30 text-kaaf-tiktok flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-gears"></i>
+                        </div>
+                        <h3 class="text-sm font-black text-white">مراحل التصنيع والإنتاج</h3>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            استغلال كواليس خطوط الإنتاج والماكينات لتعزيز ثقة العميل في القدرة التشغيلية والتوريد بكميات تجارية موثوقة.
+                        </p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-black/50 border border-white/10 space-y-2">
+                        <div class="w-10 h-10 rounded-xl bg-kaaf-blue/40 text-kaaf-cyanLight flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-layer-group"></i>
+                        </div>
+                        <h3 class="text-sm font-black text-white">تنوع الحلول والاستخدامات</h3>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            استعراض بدائل التغليف للمشروبات الباردة والساخنة، والوجبات، والحلويات، لخدمة قطاعات الأغذية والتجزئة المتعددة.
+                        </p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-black/50 border border-white/10 space-y-2">
+                        <div class="w-10 h-10 rounded-xl bg-kaaf-blue/40 text-kaaf-gold flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-fingerprint"></i>
+                        </div>
+                        <h3 class="text-sm font-black text-white">التخصيص للعلامات التجارية</h3>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            إبراز قدرة جوهرة باك على طباعة هويات العلامات التجارية الخاصة بالعميل ومساعدته على الظهور بمظهر مهني جذاب.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Professional Transparency Box -->
+                <div class="p-4 rounded-2xl bg-black/60 border border-kaaf-cyan/30 text-xs text-slate-300 flex items-center gap-3">
+                    <i class="fa-solid fa-shield-halved text-kaaf-cyan text-lg shrink-0"></i>
+                    <span><strong>توضيح مهني وموضوعي:</strong> لا يدّعي هذا العرض امتلاك بيانات أداء سرية أو أرقام مبيعات داخلية سابقة للحساب، بل يبني الرؤية التسويقية استناداً إلى التحليل المرئي والمحتوى المتاح علناً بهدف تحويل عرض المنتجات والكواليس إلى محتوى إعلاني قصير ومباشر يركز على متطلبات الشراء B2B.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- 03 — TARGET AUDIENCE & GEOGRAPHY                                          -->
+        <!-- ========================================================================= -->
+        <section id="audience" class="space-y-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
+                <div class="flex items-center gap-3">
+                    <span class="px-3 py-1 rounded-full bg-kaaf-blue/30 text-kaaf-cyan font-black text-xs border border-kaaf-blue/50">02</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-white tracking-wide">الجمهور المستهدف والنطاق الجغرافي</h2>
+                </div>
+                <span class="text-xs text-kaaf-cyan font-mono">B2B Commercial Targeting</span>
+            </div>
+
+            <div class="web-card-blue rounded-3xl p-6 sm:p-10 shadow-web-card space-y-8">
+                <p class="text-sm sm:text-base text-gray-200 leading-relaxed">
+                    يتم توجيه الحملات الإعلانية إلى متخذي القرار وأصحاب المشاريع والأنشطة التجارية الأكثر احتياجاً لحلول التعبئة والتغليف المستمرة:
+                </p>
+
+                <!-- Audience Grid (6 Categories) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="p-5 rounded-2xl bg-black/50 border border-white/10 space-y-2">
+                        <div class="flex items-center gap-2.5 text-kaaf-cyan font-bold text-sm">
+                            <i class="fa-solid fa-mug-hot"></i>
+                            <span>أصحاب المطاعم والكافيهات</span>
+                        </div>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            المحتاجون إلى أكواب المشروبات الحارة والباردة، علب الوجبات، وتغليف التوصيل والسفري بشكل دوري.
+                        </p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-black/50 border border-white/10 space-y-2">
+                        <div class="flex items-center gap-2.5 text-kaaf-tiktok font-bold text-sm">
+                            <i class="fa-solid fa-cake-candles"></i>
+                            <span>محلات الحلويات والمخابز</span>
+                        </div>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            الباحثون عن صناديق ورقية فاخرة وتغليف يحافظ على طزاجة وجودة المخبوزات والحلويات.
+                        </p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-black/50 border border-white/10 space-y-2">
+                        <div class="flex items-center gap-2.5 text-kaaf-cyanLight font-bold text-sm">
+                            <i class="fa-solid fa-store"></i>
+                            <span>متاجر التجزئة والمشاريع الصغيرة</span>
+                        </div>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            المتاجر التي تبحث عن أكياس تسوق مميزة وصناديق شحن ملائمة لمنتجاتها بأسعار توريد مناسبة.
+                        </p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-black/50 border border-white/10 space-y-2">
+                        <div class="flex items-center gap-2.5 text-kaaf-gold font-bold text-sm">
+                            <i class="fa-solid fa-utensils"></i>
+                            <span>قطاع الأغذية والمشروبات (F&B)</span>
+                        </div>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            العلامات التجارية وسلاسل الفرانشايز التي تتطلب كميات توريد مستمرة ومواصفات جودة دقيقة.
+                        </p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-black/50 border border-white/10 space-y-2">
+                        <div class="flex items-center gap-2.5 text-kaaf-cyan font-bold text-sm">
+                            <i class="fa-solid fa-calendar-check"></i>
+                            <span>منظمو الفعاليات والمناسبات</span>
+                        </div>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            الجهات التي تحتاج إلى مستلزمات ضيافة وتغليف بكميات محددة تحمل شعار الفعالية أو الرعاة.
+                        </p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-black/50 border border-kaaf-blueLight/50 space-y-2">
+                        <div class="flex items-center gap-2.5 text-kaaf-cyanLight font-bold text-sm">
+                            <i class="fa-solid fa-tags"></i>
+                            <span>المشاريع الباحثة عن علامة خاصة</span>
+                        </div>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            الأنشطة التي ترغب في طباعة هويتها الخاصة لتعزيز مكانتها وتفادي التغليف التجاري العام.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Geographic Scope -->
+                <div class="p-5 rounded-2xl bg-black/60 border border-kaaf-cyan/40 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-kaaf-blue/40 text-kaaf-cyan flex items-center justify-center text-lg shrink-0">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div>
+                            <span class="text-sm font-bold text-white block">النطاق الجغرافي المقترح للحملات الإعلانية</span>
+                            <span class="text-xs text-gray-400">المملكة العربية السعودية (التركيز على الرياض، جدة، الدمام) ومناطق التوريد المعتمدة.</span>
+                        </div>
+                    </div>
+                    <span class="px-3.5 py-1.5 rounded-full bg-kaaf-blue/30 text-kaaf-cyan text-xs font-mono font-bold border border-kaaf-blueLight/40 shrink-0">
+                        KSA Commercial Scope
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- 04 — ADVERTISING STRATEGY (2 VIDEOS PER MONTH)                           -->
+        <!-- ========================================================================= -->
+        <section id="strategy" class="space-y-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
+                <div class="flex items-center gap-3">
+                    <span class="px-3 py-1 rounded-full bg-kaaf-blue/30 text-kaaf-cyan font-black text-xs border border-kaaf-blue/50">03</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-white tracking-wide">الاستراتيجية الإعلانية المقترحة (إعلانان شهرياً)</h2>
+                </div>
+                <span class="text-xs text-kaaf-tiktok font-mono">2 Video Ads / Month Architecture</span>
+            </div>
+
+            <div class="web-card-blue rounded-3xl p-6 sm:p-10 shadow-web-card space-y-8">
+                <p class="text-sm sm:text-base text-gray-200 leading-relaxed">
+                    تقوم الخطة على <strong>إنتاج وتشغيل إعلانين فيديو شهرياً</strong> على منصة TikTok؛ حيث يتم اختبار الزوايا التسويقية وتوجيه الإنفاق نحو الرسائل التي تحقق أفضل استجابة وطلبات أسعار:
+                </p>
+
+                <!-- 2 Video Ads Breakdown -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Ad 1: Products & Solutions -->
+                    <div class="web-card-tiktok p-7 rounded-3xl space-y-5 border-t-4 border-t-kaaf-tiktok relative">
+                        <div class="flex items-center justify-between">
+                            <span class="px-3 py-1 rounded-full bg-kaaf-tiktok/20 text-kaaf-tiktok text-xs font-bold border border-kaaf-tiktok/40">الإعلان الأول</span>
+                            <i class="fa-solid fa-boxes-packing text-kaaf-tiktok text-xl"></i>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-black text-white">عرض المنتجات وحلول التغليف</h3>
+                            <span class="text-xs text-gray-400 font-mono">Product Range & Packaging Showcase</span>
+                        </div>
+
+                        <div class="space-y-2 text-xs text-gray-300">
+                            <span class="text-kaaf-cyan font-bold block">الفكرة الإعلانية:</span>
+                            <p class="leading-relaxed">
+                                فيديو سريع وديناميكي يعرض منتجات Jawhara Pack النهائية (أكواب، علب، أكياس، ورق تغليف)، مع لقطات قريبة تبرز جودة التصميم ودقة الطباعة وتنوع الاستخدامات.
+                            </p>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-black/60 border border-white/10 space-y-1.5">
+                            <span class="text-[11px] text-gray-400 block font-medium">الرسالة التسويقية المعتمدة:</span>
+                            <p class="text-xs sm:text-sm font-bold text-kaaf-tiktok">
+                                "تغليف علامتك التجارية هو أول ما يلفت انتباه عملائك.. اختَر حلول تغليف تعكس هوية مشروعك."
+                            </p>
+                        </div>
+
+                        <div class="text-xs text-gray-300 pt-2 border-t border-white/10">
+                            <strong>الهدف التجاري:</strong> لفت انتباه أصحاب المطاعم والكافيهات والمتاجر والأنشطة التجارية المهتمة بحلول التغليف المخصصة.
+                        </div>
+                    </div>
+
+                    <!-- Ad 2: Production & Manufacturing Behind The Scenes -->
+                    <div class="web-card-blue p-7 rounded-3xl space-y-5 border-t-4 border-t-kaaf-cyan relative">
+                        <div class="flex items-center justify-between">
+                            <span class="px-3 py-1 rounded-full bg-kaaf-blue/40 text-kaaf-cyan text-xs font-bold border border-kaaf-blueLight/40">الإعلان الثاني</span>
+                            <i class="fa-solid fa-industry text-kaaf-cyan text-xl"></i>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-black text-white">كواليس التصنيع وضمان الجودة</h3>
+                            <span class="text-xs text-gray-400 font-mono">Manufacturing & Production Pipeline</span>
+                        </div>
+
+                        <div class="space-y-2 text-xs text-gray-300">
+                            <span class="text-kaaf-cyan font-bold block">الفكرة الإعلانية:</span>
+                            <p class="leading-relaxed">
+                                فيديو يبرز مراحل التصنيع، وخطوط الإنتاج، والماكينات أثناء تشغيل وتجهيز المنتجات، مع التركيز على الاهتمام بالتفاصيل، وجودة التنفيذ، والقدرة على التوريد.
+                            </p>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-black/60 border border-white/10 space-y-1.5">
+                            <span class="text-[11px] text-gray-400 block font-medium">الرسالة التسويقية المعتمدة:</span>
+                            <p class="text-xs sm:text-sm font-bold text-kaaf-cyanLight">
+                                "من الفكرة إلى المنتج النهائي.. حلول تغليف تساعد علامتك التجارية على الظهور بصورة احترافية."
+                            </p>
+                        </div>
+
+                        <div class="text-xs text-gray-300 pt-2 border-t border-white/10">
+                            <strong>الهدف التجاري:</strong> بناء الثقة المؤسسية وإبراز قوة المصنع وقدرته على تلبية الطلبات التجارية، وتحفيز الجمهور على طلب عروض الأسعار.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-black/50 border border-white/10 text-xs text-gray-300">
+                    <i class="fa-solid fa-circle-info text-kaaf-cyan ml-1"></i>
+                    يتم تطوير وإنتاج الأفكار الإعلانية بالاعتماد على المواد المصورة والمحتوى الفعلي المتاح لدى شركة جوهرة باك، ودون إضافة أي شهادات أو مزايا غير مؤكدة رسمياً.
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- 05 — CAMPAIGN FRAMEWORK & BUDGET MANAGEMENT                               -->
+        <!-- ========================================================================= -->
+        <section id="framework" class="space-y-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
+                <div class="flex items-center gap-3">
+                    <span class="px-3 py-1 rounded-full bg-kaaf-blue/30 text-kaaf-cyan font-black text-xs border border-kaaf-blue/50">04</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-white tracking-wide">آلية الحملات الإعلانية وإدارة الميزانية</h2>
+                </div>
+                <span class="text-xs text-kaaf-cyan font-mono">Campaign Structure & Budget</span>
+            </div>
+
+            <div class="web-card-blue rounded-3xl p-6 sm:p-10 shadow-web-card space-y-8">
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2 text-kaaf-cyan font-bold text-sm">
+                        <i class="fa-solid fa-sitemap text-base"></i>
+                        <span>الهيكل الإعلاني على TikTok:</span>
+                    </div>
+                    <p class="text-sm text-gray-300 leading-relaxed">
+                        تشغيل الإعلانات لا يعني مجرد ترويج منشورات عشوائية؛ بل نبني هيكلاً إعلانيّاً يوزع الإعلانين على أهداف محددة ومجموعات إعلانية متناغمة:
+                    </p>
+                </div>
+
+                <!-- 3 Pillars of Campaign Framework -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="p-6 rounded-2xl bg-black/50 border border-kaaf-blue/40 space-y-3">
+                        <div class="w-10 h-10 rounded-xl bg-kaaf-blue/40 text-kaaf-cyan flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-bullhorn"></i>
+                        </div>
+                        <h3 class="text-base font-black text-white">1. حملات الوصول والوعي</h3>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            تعريف أصحاب الأنشطة التجارية بعلامة Jawhara Pack، وعرض جودة المنتجات وتنوعها بصورة بصرية جذابة وبناء قاعدة مشاهدين متفاعلين.
+                        </p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-black/50 border border-kaaf-tiktok/40 space-y-3">
+                        <div class="w-10 h-10 rounded-xl bg-kaaf-tiktok/30 text-kaaf-tiktok flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-handshake-simple"></i>
+                        </div>
+                        <h3 class="text-base font-black text-white">2. حملات جذب العملاء</h3>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            توجيه الإعلانات للمهتمين بالتوريد والشراء، مع دعوات واضحة لاتخاذ إجراء (Call to Action) مثل <strong>"تواصل معنا"</strong> أو <strong>"اطلب عرض سعر"</strong>.
+                        </p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-black/50 border border-kaaf-cyan/40 space-y-3">
+                        <div class="w-10 h-10 rounded-xl bg-kaaf-cyan/20 text-kaaf-cyan flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                        </div>
+                        <h3 class="text-base font-black text-white">3. إعادة الاستهداف والتحسين</h3>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            إعادة استهداف المشاهدين الذين تفاعلوا مع الفيديوهات متى توفرت بيانات كافية، وتحسين الإنفاق بتوجيهه نحو الإعلان والجمهور الأعلى كفاءة.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Ad Budget Management Card -->
+                <div class="p-6 sm:p-8 rounded-3xl bg-black/60 border border-kaaf-border space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
+                        <div>
+                            <span class="text-xs font-bold text-kaaf-cyan font-mono block">MONTHLY MEDIA SPEND RECOMMENDATION</span>
+                            <h3 class="text-xl sm:text-2xl font-black text-white mt-1">الميزانية الإعلانية المقترحة لحملات TikTok</h3>
+                        </div>
+                        <div class="text-right sm:text-left">
+                            <span class="text-2xl sm:text-3xl font-black text-kaaf-tiktok font-ibm">2,000 <span class="text-base text-white font-cairo">ريال شهرياً</span></span>
+                        </div>
+                    </div>
+
+                    <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                        يتم إدارة وتوزيع الميزانية الإعلانية (2,000 ريال شهرياً) وفقاً للنتائج المرحلية، وتشمل:
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs text-gray-300 pt-1">
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-check text-kaaf-cyan"></i> <span>اختبار الرسائل الإعلانية.</span></div>
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-check text-kaaf-cyan"></i> <span>اختبار شرائح الجمهور التجاري.</span></div>
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-check text-kaaf-cyan"></i> <span>متابعة تكلفة الوصول والنقرات.</span></div>
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-check text-kaaf-cyan"></i> <span>توجيه الإنفاق للإعلان الأنجح.</span></div>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-black/80 border border-kaaf-gold/40 text-xs text-slate-300 flex items-start gap-3 mt-3">
+                        <i class="fa-solid fa-wallet text-kaaf-gold text-base mt-0.5 shrink-0"></i>
+                        <span><strong>تنبيه مالي مهم:</strong> ميزانية تمويل الإعلانات المدفوعة (2,000 ريال شهرياً) تُدفع مباشرة إلى منصة TikTok، ولا تدخل ضمن أتعاب إدارة وتشغيل KAAF Group. كما لا يقدّم العرض أي وعود بأرقام مبيعات حتمية غير مضمونة.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- 06 — ROADMAP & KPIS                                                       -->
+        <!-- ========================================================================= -->
+        <section id="roadmap" class="space-y-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
+                <div class="flex items-center gap-3">
+                    <span class="px-3 py-1 rounded-full bg-kaaf-blue/30 text-kaaf-cyan font-black text-xs border border-kaaf-blue/50">05</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-white tracking-wide">الخطة التنفيذية ومؤشرات الأداء (KPIs)</h2>
+                </div>
+                <span class="text-xs text-kaaf-cyan font-mono">Execution Roadmap & Performance</span>
+            </div>
+
+            <!-- Execution Phases -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Phase 1 -->
+                <div class="web-card-blue p-6 rounded-3xl space-y-4 border-t-4 border-t-kaaf-blueLight">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-kaaf-cyan font-mono">PHASE 01</span>
+                        <span class="px-2.5 py-0.5 rounded-full bg-kaaf-blue/40 text-kaaf-cyan text-[11px] font-bold">مرحلة التجهيز</span>
+                    </div>
+                    <h3 class="text-base font-black text-white">التجهيز وإعداد الاستراتيجية</h3>
+                    <ul class="space-y-2 text-xs text-gray-300">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-kaaf-cyan mt-0.5"></i> <span>مراجعة الحساب والمنتجات والمواد المصورة.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-kaaf-cyan mt-0.5"></i> <span>تحديد فئات الجمهور والرسائل التسويقية.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-kaaf-cyan mt-0.5"></i> <span>تجهيز فكرتي الإعلان والمواد الإبداعية.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-kaaf-cyan mt-0.5"></i> <span>إعداد الحملات وبكسل التتبع والاستهداف.</span></li>
+                    </ul>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="web-card-tiktok p-6 rounded-3xl space-y-4 border-t-4 border-t-kaaf-tiktok">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-kaaf-tiktok font-mono">PHASE 02</span>
+                        <span class="px-2.5 py-0.5 rounded-full bg-kaaf-tiktok/20 text-kaaf-tiktok text-[11px] font-bold">مرحلة التشغيل</span>
+                    </div>
+                    <h3 class="text-base font-black text-white">الإطلاق وتشغيل الإعلانات</h3>
+                    <ul class="space-y-2 text-xs text-gray-300">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-kaaf-tiktok mt-0.5"></i> <span>إطلاق الحملات الإعلانية على TikTok Ads.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-kaaf-tiktok mt-0.5"></i> <span>تشغيل الإعلانين وفق خطة الاختبار المعتمدة.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-kaaf-tiktok mt-0.5"></i> <span>متابعة تفاعل الجمهور ومعدلات المشاهدة.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-kaaf-tiktok mt-0.5"></i> <span>رصد الاستفسارات وطلبات عروض الأسعار الواردة.</span></li>
+                    </ul>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="web-card-cyan p-6 rounded-3xl space-y-4 border-t-4 border-t-kaaf-cyan">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-kaaf-cyan font-mono">PHASE 03</span>
+                        <span class="px-2.5 py-0.5 rounded-full bg-kaaf-cyan/20 text-kaaf-cyan text-[11px] font-bold">مرحلة التحسين</span>
+                    </div>
+                    <h3 class="text-base font-black text-white">التحليل والتحسين المستمر</h3>
+                    <ul class="space-y-2 text-xs text-gray-300">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-kaaf-cyan mt-0.5"></i> <span>تحليل نتائج كل إعلان وتحديد الأفضل كفاءة.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-kaaf-cyan mt-0.5"></i> <span>تحسين الاستهداف والميزانية لتقليل التكلفة.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-kaaf-cyan mt-0.5"></i> <span>تطوير الرسائل الإعلانية وفق بيانات الأداء.</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-kaaf-cyan mt-0.5"></i> <span>تقديم تقرير أداء وتوصيات للشهر التالي.</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- KPIs Matrix -->
+            <div class="web-card-blue rounded-3xl p-6 sm:p-8 space-y-4 shadow-web-card">
+                <div class="flex items-center gap-2 text-kaaf-cyan font-bold text-sm">
+                    <i class="fa-solid fa-chart-line text-base"></i>
+                    <span>مؤشرات قياس الأداء التي سيتم رصدها (Performance Metrics):</span>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-center">
+                    <div class="p-4 rounded-2xl bg-black/50 border border-white/10 space-y-1">
+                        <span class="text-[10px] text-gray-400 block font-mono">Impressions & Reach</span>
+                        <span class="text-xs font-black text-white">مرات الظهور والوصول</span>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-black/50 border border-white/10 space-y-1">
+                        <span class="text-[10px] text-gray-400 block font-mono">Video Completion</span>
+                        <span class="text-xs font-black text-kaaf-tiktok">معدل إكمال الفيديو</span>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-black/50 border border-white/10 space-y-1">
+                        <span class="text-[10px] text-gray-400 block font-mono">CTR %</span>
+                        <span class="text-xs font-black text-white">معدل النقر إلى الظهور</span>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-black/50 border border-white/10 space-y-1">
+                        <span class="text-[10px] text-gray-400 block font-mono">CPC / CPM</span>
+                        <span class="text-xs font-black text-kaaf-cyan">تكلفة النقرة والظهور</span>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-black/50 border border-white/10 space-y-1">
+                        <span class="text-[10px] text-gray-400 block font-mono">Inquiries & Leads</span>
+                        <span class="text-xs font-black text-white">الاستفسارات المحققة</span>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-black/50 border border-white/10 space-y-1">
+                        <span class="text-[10px] text-gray-400 block font-mono">Cost Per Lead (CPL)</span>
+                        <span class="text-xs font-black text-kaaf-gold">تكلفة العميل المحتمل</span>
+                    </div>
+                </div>
+
+                <div class="text-[11px] text-gray-400 text-center">
+                    يتم تقييم أداء الإعلانات وتطويرها وفق البيانات الفعلية المسجلة في مدير إعلانات TikTok ومدى ملاءمتها لأهداف الشركة التجارية.
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- 07 — INVESTMENT & WHITE FRIDAY PRICING                                    -->
+        <!-- ========================================================================= -->
+        <section id="pricing" class="space-y-8">
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-kaaf-tiktok/20 border border-kaaf-tiktok/50 text-kaaf-tiktok text-xs font-black">
+                    <i class="fa-solid fa-tag"></i>
+                    <span>عرض حصري • White Friday Offer</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">الاستثمار والعرض السعري</h2>
+                <p class="text-xs sm:text-sm text-gray-300">عرض خاص لشركة Jawhara Pack يشمل إدارة وتشغيل إعلانات تيك توك الشهرية</p>
+            </div>
+
+            <!-- Single Pricing Card with Strikethrough Price -->
+            <div class="max-w-3xl mx-auto">
+                <div class="web-card-tiktok p-8 sm:p-12 rounded-3xl flex flex-col justify-between space-y-8 shadow-glow-tiktok border-2 border-kaaf-tiktok relative">
+                    <div class="absolute -top-3.5 right-8 px-4 py-1 rounded-full bg-gradient-to-r from-kaaf-tiktok via-rose-500 to-kaaf-cyan text-white text-[11px] font-black uppercase tracking-wider shadow-md">
+                        عرض White Friday الحصري
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/10 pb-4 gap-3">
+                            <div>
+                                <span class="text-xs font-bold text-kaaf-tiktok font-ibm uppercase tracking-wider block">خدمة احترافية مخصصة</span>
+                                <h3 class="text-2xl sm:text-3xl font-black text-white mt-1">إدارة وتشغيل إعلانات TikTok</h3>
+                            </div>
+                            <span class="px-3.5 py-1.5 rounded-full bg-kaaf-tiktok/20 text-kaaf-tiktok text-xs font-bold border border-kaaf-tiktok/40 self-start sm:self-auto">
+                                اشتراك شهري
+                            </span>
+                        </div>
+
+                        <p class="text-xs sm:text-sm text-gray-200 leading-relaxed">
+                            يشمل العرض تشغيل وإدارة المنظومة الإعلانية لجوهرة باك وفق الخطة المقترحة:
+                        </p>
+
+                        <!-- Deliverables Checklist -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-gray-200 pt-2">
+                            <div class="flex items-start gap-2.5 p-3 rounded-xl bg-black/40 border border-white/10">
+                                <i class="fa-solid fa-check text-kaaf-tiktok mt-0.5"></i>
+                                <span><strong>الاستراتيجية الإعلانية:</strong> تحديد الجمهور واستهداف أصحاب الأنشطة التجارية.</span>
+                            </div>
+                            <div class="flex items-start gap-2.5 p-3 rounded-xl bg-black/40 border border-white/10">
+                                <i class="fa-solid fa-check text-kaaf-tiktok mt-0.5"></i>
+                                <span><strong>إنتاج إعلانين فيديو شهرياً:</strong> إعلان المنتجات والحلول + إعلان كواليس الإنتاج.</span>
+                            </div>
+                            <div class="flex items-start gap-2.5 p-3 rounded-xl bg-black/40 border border-white/10">
+                                <i class="fa-solid fa-check text-kaaf-tiktok mt-0.5"></i>
+                                <span><strong>إدارة وتشغيل الحملات:</strong> إعداد مجموعات الإعلانات وجدولة النشر بدقة.</span>
+                            </div>
+                            <div class="flex items-start gap-2.5 p-3 rounded-xl bg-black/40 border border-white/10">
+                                <i class="fa-solid fa-check text-kaaf-tiktok mt-0.5"></i>
+                                <span><strong>متابعة وتحسين الأداء:</strong> إعادة توجيه الميزانية للإعلانات الأكثر استجابة.</span>
+                            </div>
+                            <div class="flex items-start gap-2.5 p-3 rounded-xl bg-black/40 border border-white/10">
+                                <i class="fa-solid fa-check text-kaaf-tiktok mt-0.5"></i>
+                                <span><strong>تحليل مؤشرات KPIs:</strong> مراقبة النقرات والمشاهدات ومعدلات التكلفة.</span>
+                            </div>
+                            <div class="flex items-start gap-2.5 p-3 rounded-xl bg-black/40 border border-white/10">
+                                <i class="fa-solid fa-check text-kaaf-tiktok mt-0.5"></i>
+                                <span><strong>تقارير دورية وتوصيات:</strong> تقرير دوري يوضح أثر الإعلانات وفرص التوسع.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pricing Action Area -->
+                    <div class="pt-6 border-t border-white/10 space-y-4">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                            <div>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="text-xs text-gray-400">السعر الأساسي:</span>
+                                    <span class="text-sm line-through text-gray-500 font-bold font-ibm">1,800 SAR</span>
+                                    <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 text-[10px] font-bold border border-emerald-500/30">خصم White Friday</span>
+                                </div>
+                                <div class="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-kaaf-tiktok via-white to-kaaf-cyan font-ibm">
+                                    960 <span class="text-2xl text-kaaf-tiktok font-cairo">SAR</span>
+                                </div>
+                                <span class="text-[11px] text-gray-300 block mt-1">تسعمائة وستون ريال سعودي شهرياً فقط (أتعاب الإدارة والتشغيل)</span>
+                            </div>
+                            <div class="text-right sm:text-left text-xs text-gray-400 bg-black/50 p-4 rounded-2xl border border-white/10">
+                                <span class="block text-white font-bold mb-1">ميزانية الإعلانات المدفوعة:</span>
+                                2,000 ريال شهرياً تدفع للمنصة مباشرة وتدار بمعرفة فريق KAAF
+                            </div>
+                        </div>
+
+                        <a href="https://wa.me/966558029554?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20KAAF%20Group%D8%8C%20%D9%86%D9%88%D8%AF%20%D8%A7%D8%B9%D8%AA%D9%85%D8%A7%D8%AF%20%D8%B9%D8%B1%D8%B6%20White%20Friday%20%D9%84%D8%A5%D8%AF%D8%A7%D8%B1%D8%A9%20%D8%A5%D8%B9%D9%84%D8%A7%D9%86%D8%A7%D8%AA%20TikTok%20%D9%84%D8%B4%D8%B1%D9%83%D8%A9%20Jawhara%20Pack%20(960%20SAR)" target="_blank" class="w-full py-4 rounded-xl bg-gradient-to-r from-kaaf-tiktok via-rose-600 to-kaaf-blue text-white font-black text-xs flex items-center justify-center gap-2 hover:brightness-110 shadow-glow-tiktok transition">
+                            <i class="fa-brands fa-tiktok text-sm"></i>
+                            <span>اعتماد عرض White Friday لجوهرة باك (960 ريال/شهرياً)</span>
+                            <i class="fa-solid fa-arrow-left text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Financial Disclaimer Note -->
+            <div class="p-6 rounded-2xl bg-black/60 border border-kaaf-border text-xs text-slate-300 leading-relaxed space-y-2 max-w-3xl mx-auto">
+                <div class="flex items-center gap-2 text-kaaf-tiktok font-bold">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span>ملاحظة مالية معتمدة:</span>
+                </div>
+                <p>
+                    أتعاب الإدارة والتشغيل المخفضة (960 ريال شهرياً) تغطي خدمات KAAF Group الفنية والإبداعية. أما ميزانية الإنفاق الإعلاني المدفوعة للمنصة (المقترحة بـ 2,000 ريال شهرياً) فتُدفع لحساب TikTok الإعلاني مباشرة ولا تدمج مع أتعاب الوكالة في رقم واحد.
+                </p>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- 08 — CLOSING & CALL TO ACTION                                             -->
+        <!-- ========================================================================= -->
+        <section id="contact-action" class="relative rounded-[32px] overflow-hidden p-8 sm:p-16 bg-gradient-to-br from-kaaf-blueDeep via-black to-kaaf-dark border border-kaaf-border text-center space-y-8 shadow-web-card">
+            <div class="kaaf-luxury-ribbon absolute top-0 left-0 right-0"></div>
+
+            <div class="max-w-2xl mx-auto space-y-5">
+                <div class="w-16 h-16 rounded-2xl overflow-hidden border-2 border-kaaf-tiktok shadow-glow-tiktok p-0.5 bg-black mx-auto">
+                    <img src="https://i.ibb.co/qLQcG9vr/Whats-App-Image-2026-08-26-at-11-29-58.jpg" alt="KAAF Group" class="w-full h-full object-cover rounded-xl">
+                </div>
+
+                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-kaaf-tiktok/20 border border-kaaf-tiktok/40 text-kaaf-tiktok text-xs font-bold font-ibm">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>KAAF Group × Jawhara Pack • شراكة نمو</span>
+                </div>
+
+                <h3 class="text-3xl sm:text-4xl font-black text-white leading-tight">
+                    معاً لتحويل المشاهدات إلى تعاقدات وطلبات توريد
+                </h3>
+
+                <p class="text-base sm:text-lg text-kaaf-cyanLight font-bold leading-relaxed max-w-xl mx-auto">
+                    «هدفنا هو تحويل منتجات Jawhara Pack من مجرد منتجات يتم عرضها على منصات التواصل إلى حلول تغليف تصل إلى أصحاب الأنشطة التجارية المستهدفين، وتدفعهم للتواصل وطلب عروض الأسعار، من خلال إعلانات TikTok مدروسة ومستمرة التحسين.»
+                </p>
+
+                <p class="text-xs sm:text-sm text-gray-300 leading-relaxed max-w-lg mx-auto">
+                    يسعدنا في <strong>KAAF Group</strong> بدء هذا التعاون وإطلاق أول إعلانين فيديو مخصصين لحساب جوهرة باك فور اعتماد العرض.
+                </p>
+            </div>
+
+            <!-- Action Buttons Row -->
+            <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#pricing" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-kaaf-tiktok via-rose-600 to-kaaf-blue text-white font-black text-xs shadow-xl flex items-center gap-3 transition-transform hover:-translate-y-0.5 hover:brightness-110">
+                    <i class="fa-solid fa-file-signature"></i>
+                    <span>اعتماد العرض وبدء الإعداد</span>
+                    <i class="fa-solid fa-arrow-left text-[10px]"></i>
+                </a>
+                <a href="https://wa.me/966558029554?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20KAAF%20Group%D8%8C%20%D9%86%D9%88%D8%AF%20%D8%A8%D8%AF%D8%A1%20%D8%A7%D9%84%D8%AA%D9%86%D8%B3%D9%8A%D9%82%20%D9%84%D8%A5%D8%B9%D9%84%D8%A7%D9%86%D8%A7%D8%AA%20TikTok%20%D9%84%D8%B4%D8%B1%D9%83%D8%A9%20%D8%AC%D9%88%D9%87%D8%B1%D8%A9%20%D8%A8%D8%A7%D9%83" target="_blank" class="px-8 py-4 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs flex items-center gap-2 transition border border-white/15">
+                    <i class="fa-brands fa-whatsapp text-emerald-400"></i>
+                    <span>محادثة فورية مع المستشار الإعلاني</span>
+                </a>
+            </div>
+
+            <div class="pt-8 border-t border-white/10 text-xs text-gray-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div>عرض إدارة وتشغيل إعلانات TikTok • مُعد خصيصاً لشركة Jawhara Pack – جوهرة باك</div>
+                <div class="font-mono text-gray-400">KAAF Group for Marketing, Software & Media Solutions • All Rights Reserved</div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- INTERACTIVE HTML5 CANVAS SCRIPT -->
+    <script>
+        (function() {
+            const canvas = document.getElementById('interactive-bg-canvas');
+            const ctx = canvas.getContext('2d');
+
+            let width, height;
+            let particles = [];
+            const particleCount = 42;
+            const colors = ['#0A4C86', '#06B6D4', '#FE2C55', '#25F4EE', '#1C75C8'];
+
+            let mouse = {
+                x: null,
+                y: null,
+                radius: 140
+            };
+
+            function resize() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            }
+
+            window.addEventListener('resize', resize);
+            window.addEventListener('mousemove', function(e) {
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+            });
+            window.addEventListener('mouseout', function() {
+                mouse.x = null;
+                mouse.y = null;
+            });
+
+            // Touch events for mobile
+            window.addEventListener('touchmove', function(e) {
+                if (e.touches.length > 0) {
+                    mouse.x = e.touches[0].clientX;
+                    mouse.y = e.touches[0].clientY;
+                }
+            }, { passive: true });
+            window.addEventListener('touchend', function() {
+                mouse.x = null;
+                mouse.y = null;
+            });
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.vx = (Math.random() - 0.5) * 0.7;
+                    this.vy = (Math.random() - 0.5) * 0.7;
+                    this.radius = Math.random() * 2.2 + 1.2;
+                    this.color = colors[Math.floor(Math.random() * colors.length)];
+                    this.baseAlpha = Math.random() * 0.4 + 0.25;
+                }
+
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+
+                    // Bounce on screen edges
+                    if (this.x < 0 || this.x > width) this.vx *= -1;
+                    if (this.y < 0 || this.y > height) this.vy *= -1;
+
+                    // Mouse interaction
+                    if (mouse.x !== null && mouse.y !== null) {
+                        let dx = mouse.x - this.x;
+                        let dy = mouse.y - this.y;
+                        let distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < mouse.radius) {
+                            let force = (mouse.radius - distance) / mouse.radius;
+                            let directionX = (dx / distance) * force * 2.5;
+                            let directionY = (dy / distance) * force * 2.5;
+                            this.x -= directionX;
+                            this.y -= directionY;
+                        }
+                    }
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.globalAlpha = this.baseAlpha;
+                    ctx.fill();
+                }
+            }
+
+            function init() {
+                resize();
+                particles = [];
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push(new Particle());
+                }
+            }
+
+            function connect() {
+                const maxDistance = 135;
+                for (let a = 0; a < particles.length; a++) {
+                    for (let b = a + 1; b < particles.length; b++) {
+                        let dx = particles[a].x - particles[b].x;
+                        let dy = particles[a].y - particles[b].y;
+                        let distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < maxDistance) {
+                            let opacity = (1 - (distance / maxDistance)) * 0.2;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[a].x, particles[a].y);
+                            ctx.lineTo(particles[b].x, particles[b].y);
+                            ctx.strokeStyle = '#06B6D4';
+                            ctx.globalAlpha = opacity;
+                            ctx.lineWidth = 0.9;
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                ctx.globalAlpha = 1;
+
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                }
+                connect();
+
+                requestAnimationFrame(animate);
+            }
+
+            window.onload = function() {
+                init();
+                animate();
+            };
+        })();
+    </script>
+</body>
+</html>
